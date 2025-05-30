@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,11 +14,7 @@ class Employee extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'country_id',
         'state_id',
@@ -29,11 +28,12 @@ class Employee extends Model
         'date_hired',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+
+
+    // Scopes
+
+
+    //Casts
     protected function casts(): array
     {
         return [
@@ -47,6 +47,11 @@ class Employee extends Model
         ];
     }
 
+
+
+
+
+    // Relations
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
@@ -71,4 +76,35 @@ class Employee extends Model
     {
         return $this->hasMany(Task::class);
     }
-}
+
+
+
+    // Functions
+    public static function getFormSchema(): array
+    {
+        return [
+            Select::make('country_id')
+                ->relationship('country', 'name'),
+            Select::make('state_id')
+                ->relationship('state', 'name'),
+            Select::make('city_id')
+                ->relationship('city', 'name'),
+            Select::make('department_id')
+                ->relationship('department', 'name')
+                ->required(),
+            TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('email')
+                ->email()
+                ->maxLength(255),
+            TextInput::make('phone')
+                ->tel()
+                ->maxLength(255),
+            TextInput::make('address')
+                ->maxLength(255),
+            DatePicker::make('date_of_birth'),
+            DatePicker::make('date_hired'),
+        ];
+    }
+} // end of Employee model

@@ -22,19 +22,7 @@ class StateResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('country_id')
-                    ->relationship('country', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('code')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone_code')
-                    ->tel()
-                    ->maxLength(255),
-            ]);
+            ->schema(State::getFormSchema());
     }
 
     public static function table(Table $table): Table

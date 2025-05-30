@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,21 +11,16 @@ class Department extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'name',
         'code',
     ];
+    // Scopes
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+
+
+    //casts
     protected function casts(): array
     {
         return [
@@ -32,8 +28,25 @@ class Department extends Model
         ];
     }
 
+
+
+    //Relations
     public function employees(): HasMany
     {
         return $this->hasMany(Employee::class);
     }
-}
+
+
+
+    //functions
+    public static function getFormSchema()
+    {
+        return [
+            TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('code')
+                ->maxLength(255),
+        ];
+    }
+} // end of Department model

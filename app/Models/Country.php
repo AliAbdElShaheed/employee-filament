@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,22 +11,17 @@ class Country extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'name',
         'code',
         'phone_code',
     ];
+    // Scopes
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+
+
+    //casts
     protected function casts(): array
     {
         return [
@@ -33,8 +29,33 @@ class Country extends Model
         ];
     }
 
+
+
+
+    //Relations
     public function states(): HasMany
     {
         return $this->hasMany(State::class);
     }
-}
+
+
+
+    //functions
+
+    public static function getFormSchema()
+    {
+        return [
+
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('code')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('phone_code')
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
+            ];
+    }
+} // end of country model

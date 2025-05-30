@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,21 +23,17 @@ class User extends Authenticatable
         'is_admin',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    //Scopes
+
+
+
+    // Casts
     protected function casts(): array
     {
         return [
@@ -43,4 +42,33 @@ class User extends Authenticatable
             'is_admin' => 'boolean',
         ];
     }
-}
+
+
+
+    // Relations
+
+
+
+    // Functions
+    public static function getFormSchema(): array
+    {
+        return
+        [
+            TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('email')
+                ->email()
+                ->required()
+                ->maxLength(255),
+            DateTimePicker::make('email_verified_at'),
+            TextInput::make('password')
+                ->password()
+                ->required()
+                ->maxLength(255),
+            Toggle::make('is_admin')
+                ->required(),
+        ];
+    }
+
+} // end of user model

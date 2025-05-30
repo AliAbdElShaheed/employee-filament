@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,11 +13,7 @@ class State extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'country_id',
         'name',
@@ -23,11 +21,12 @@ class State extends Model
         'phone_code',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+
+    // Scopes
+
+
+
+    // Casts
     protected function casts(): array
     {
         return [
@@ -36,6 +35,11 @@ class State extends Model
         ];
     }
 
+
+
+
+
+    // Relations
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
@@ -45,4 +49,26 @@ class State extends Model
     {
         return $this->hasMany(City::class);
     }
-}
+
+
+
+
+    // Functions
+    public static function getFormSchema(): array
+    {
+        return [
+            Select::make('country_id')
+                ->relationship('country', 'name')
+                ->required(),
+            TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('code')
+                ->maxLength(255),
+            TextInput::make('phone_code')
+                ->tel()
+                ->maxLength(255),
+        ];
+
+    }
+} // end of State model

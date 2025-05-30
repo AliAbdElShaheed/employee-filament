@@ -22,30 +22,7 @@ class EmployeeResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('country_id')
-                    ->relationship('country', 'name'),
-                Forms\Components\Select::make('state_id')
-                    ->relationship('state', 'name'),
-                Forms\Components\Select::make('city_id')
-                    ->relationship('city', 'name'),
-                Forms\Components\Select::make('department_id')
-                    ->relationship('department', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address')
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('date_of_birth'),
-                Forms\Components\DatePicker::make('date_hired'),
-            ]);
+            ->schema(Employee::getFormSchema());
     }
 
     public static function table(Table $table): Table

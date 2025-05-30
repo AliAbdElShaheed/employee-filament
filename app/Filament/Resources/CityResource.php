@@ -22,16 +22,7 @@ class CityResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('state_id')
-                    ->relationship('state', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('zip_code')
-                    ->maxLength(255),
-            ]);
+            ->schema(City::getFormSchema());
     }
 
     public static function table(Table $table): Table
