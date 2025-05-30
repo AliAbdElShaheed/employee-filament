@@ -17,7 +17,11 @@ class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-flag';
+
+//    protected static ?string $navigationLabel = 'Country';
+
+//    protected static ?string $modelLabel = 'Employee Country';
 
     public static function form(Form $form): Form
     {
@@ -82,7 +86,7 @@ class CountryResource extends Resource
             'index' => Pages\ListCountries::route('/'),
             'create' => Pages\CreateCountry::route('/create'),
             'view' => Pages\ViewCountry::route('/{record}'),
-            'edit' => Pages\EditCountry::route('/{record}/edit'),
+            //'edit' => Pages\EditCountry::route('/{record}/edit'),
         ];
     }
 }
