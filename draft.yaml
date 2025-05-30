@@ -1,5 +1,54 @@
 models:
-  # ...
+  Country:
+      name: string
+      code: string
+      phone_code: string
+      relationships:
+        hasMany: State
 
-controllers:
-  # ...
+
+  State:
+      country_id: unsignedInteger
+      name: string
+      code: string nullable
+      phone_code: string nullable
+      relationships:
+        belongsTo: Country
+        hasMany: City
+
+  City:
+      state_id: unsignedInteger
+      name: string
+      zip_code: string nullable
+      relationships:
+        belongsTo: State
+
+  Department:
+      name: string
+      code: string nullable
+      relationships:
+        hasMany: Employee
+
+  Employee:
+      country_id: unsignedInteger nullable
+      state_id: unsignedInteger nullable
+      city_id: unsignedInteger nullable
+      department_id: unsignedInteger
+      name: string
+      email: string nullable
+      phone: string nullable
+      address: string nullable
+      date_of_birth: date nullable
+      date_hired: date nullable
+      relationships:
+        belongsTo: Department, City, State, Country
+        hasMany: Task
+
+  Task:
+      title: string
+      description: string nullable
+      due_date: date nullable
+      status: string nullable
+      employee_id: unsignedInteger nullable
+      relationships:
+        belongsTo: Employee

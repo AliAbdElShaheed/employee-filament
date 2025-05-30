@@ -1,2 +1,27 @@
+created:
+    - database/factories/CountryFactory.php
+    - database/factories/StateFactory.php
+    - database/factories/CityFactory.php
+    - database/factories/DepartmentFactory.php
+    - database/factories/EmployeeFactory.php
+    - database/factories/TaskFactory.php
+    - database/migrations/2025_05_30_041035_create_countries_table.php
+    - database/migrations/2025_05_30_041036_create_states_table.php
+    - database/migrations/2025_05_30_041037_create_cities_table.php
+    - database/migrations/2025_05_30_041038_create_departments_table.php
+    - database/migrations/2025_05_30_041039_create_employees_table.php
+    - database/migrations/2025_05_30_041040_create_tasks_table.php
+    - app/Models/Country.php
+    - app/Models/State.php
+    - app/Models/City.php
+    - app/Models/Department.php
+    - app/Models/Employee.php
+    - app/Models/Task.php
 models:
     User: {  }
+    Country: { name: string, code: string, phone_code: string, relationships: { hasMany: State } }
+    State: { country_id: unsignedInteger, name: string, code: 'string nullable', phone_code: 'string nullable', relationships: { belongsTo: Country, hasMany: City } }
+    City: { state_id: unsignedInteger, name: string, zip_code: 'string nullable', relationships: { belongsTo: State } }
+    Department: { name: string, code: 'string nullable', relationships: { hasMany: Employee } }
+    Employee: { country_id: 'unsignedInteger nullable', state_id: 'unsignedInteger nullable', city_id: 'unsignedInteger nullable', department_id: unsignedInteger, name: string, email: 'string nullable', phone: 'string nullable', address: 'string nullable', date_of_birth: 'date nullable', date_hired: 'date nullable', relationships: { belongsTo: 'Department, City, State, Country', hasMany: Task } }
+    Task: { title: string, description: 'string nullable', due_date: 'date nullable', status: 'string nullable', employee_id: 'unsignedInteger nullable', relationships: { belongsTo: Employee } }
