@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('country_id')->nullable();
-            $table->foreignId('state_id')->nullable();
-            $table->foreignId('city_id')->nullable();
-            $table->foreignId('department_id');
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->date('date_hired')->nullable();
+            $table->foreignId('country_id')->nullable();
+            $table->foreignId('state_id')->nullable();
+            $table->foreignId('city_id')->nullable();
+            $table->foreignId('department_id');
             $table->timestamps();
         });
     }

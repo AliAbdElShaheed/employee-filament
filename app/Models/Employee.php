@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,28 +84,49 @@ class Employee extends Model
     public static function getFormSchema(): array
     {
         return [
-            Select::make('country_id')
-                ->relationship('country', 'name'),
-            Select::make('state_id')
-                ->relationship('state', 'name'),
-            Select::make('city_id')
-                ->relationship('city', 'name'),
-            Select::make('department_id')
-                ->relationship('department', 'name')
-                ->required(),
-            TextInput::make('name')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('email')
-                ->email()
-                ->maxLength(255),
-            TextInput::make('phone')
-                ->tel()
-                ->maxLength(255),
-            TextInput::make('address')
-                ->maxLength(255),
-            DatePicker::make('date_of_birth'),
-            DatePicker::make('date_hired'),
+            Section::make('Basic Information')
+                ->description('Fill in the basic information of the employee.')
+                ->columns(2)
+                ->collapsible()
+                ->schema([
+                    TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                    TextInput::make('email')
+                        ->email()
+                        ->maxLength(255),
+                    TextInput::make('phone')
+                        ->tel()
+                        ->maxLength(255),
+                    DatePicker::make('date_of_birth'),
+                ]),
+            Section::make('Location Information')
+                ->description('Select the location details of the employee.')
+                ->columns(3)
+                ->collapsible()
+                ->schema([
+                    Select::make('country_id')
+                        ->relationship('country', 'name'),
+                    Select::make('state_id')
+                        ->relationship('state', 'name'),
+                    Select::make('city_id')
+                        ->relationship('city', 'name'),
+                    TextInput::make('address')
+                        ->maxLength(255)
+                    ->columnSpanFull(),
+                ]),
+            Section::make('Employment Information')
+                ->description('Fill in the employment details of the employee.')
+                ->columns(2)
+                ->collapsible()
+                ->schema([
+                    Select::make('department_id')
+                        ->relationship('department', 'name')
+                        ->required(),
+                    DatePicker::make('date_hired'),
+                ]),
+
+
         ];
     }
 } // end of Employee model
