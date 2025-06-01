@@ -34,14 +34,26 @@ class StateResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->label('State Name')
+                    ->sortable()
+//                    ->searchable(),
+                    ->searchable(isIndividual: true),
+
                 Tables\Columns\TextColumn::make('code')
+                    ->label('State Code')
+                    ->sortable()
                     ->searchable(),
+//                    ->visible(auth()->check() && auth()->user()->can('viewAny', State::class)),
+
                 Tables\Columns\TextColumn::make('phone_code')
-                    ->searchable(),
+                    ->searchable()
+                    ->hidden(auth()->user()?->is_admin ? false : true),
+
                 Tables\Columns\TextColumn::make('country.name')
-                    ->numeric()
+                    ->searchable(isIndividual: true, isGlobal: false)
+//                    ->searchable()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -50,7 +62,7 @@ class StateResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ])->defaultSort('country.name', 'asc')
             ->filters([
                 //
             ])
