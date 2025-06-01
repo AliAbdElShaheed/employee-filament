@@ -6,10 +6,13 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Employee extends Model
 {
@@ -109,17 +112,29 @@ class Employee extends Model
                         ->relationship('country', 'name')
                         ->native(false)
                         ->searchable()
-                        ->preload(),
+                        ->preload()
+                        ->live()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('state_id', null);
+                            $set('city_id', null);
+                        }),
                     Select::make('state_id')
-                        ->relationship('state', 'name')
+                        ->options(fn(Get $get): Collection => State::query()
+                            ->where('country_id', $get('country_id'))
+                            ->pluck('name', 'id'))
                         ->native(false)
                         ->searchable()
-                        ->preload(),
+                        ->preload()
+                        ->live()
+                        ->afterStateUpdated(fn(Set $set) => $set('city_id', null)),
                     Select::make('city_id')
-                        ->relationship('city', 'name')
+                        ->options(fn(Get $get): Collection => City::query()
+                            ->where('state_id', $get('state_id'))
+                            ->pluck('name', 'id'))
                         ->native(false)
                         ->searchable()
-                        ->preload(),
+                        ->preload()
+                        ->live(),
                     TextInput::make('address')
                         ->maxLength(255)
                     ->columnSpanFull(),
