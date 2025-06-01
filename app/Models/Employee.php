@@ -101,7 +101,15 @@ class Employee extends Model
                     TextInput::make('phone')
                         ->tel()
                         ->maxLength(255),
-                    DatePicker::make('date_of_birth'),
+                    DatePicker::make('date_of_birth')
+                        ->native(false)
+                        ->prefixIcon('heroicon-o-cake')
+                        ->prefixIconColor('primary')
+                        ->displayFormat('d/m/Y')
+                        ->firstDayOfWeek(6)
+                        ->closeOnDateSelection()
+                        ->minDate(now()->subYears(35))
+                        ->maxDate(now()->addYears(18)),
                 ]),
             Section::make('Location Information')
                 ->description('Select the location details of the employee.')
@@ -150,7 +158,15 @@ class Employee extends Model
                         ->searchable()
                         ->preload()
                         ->required(),
-                    DatePicker::make('date_hired'),
+                    DatePicker::make('date_hired')
+                        ->native(false)
+                        ->displayFormat('d/m/Y')
+//                        ->firstDayOfWeek(7)
+                        ->weekStartsOnSunday()
+                        ->disabledDates(['2025-06-06', '2025-06-13', '2025-06-20'])
+                        ->closeOnDateSelection()
+                        ->prefix('Starts')
+                        ->suffixIcon('heroicon-o-calendar'),
                 ]),
 
 
