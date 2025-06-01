@@ -36,7 +36,13 @@ class DepartmentResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
+                    ->label('Department Code')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('employees_count')->counts('Employees')
+                    ->label('Employee Count')
+                    ->badge()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
