@@ -59,15 +59,18 @@ class State extends Model
         return [
             Select::make('country_id')
                 ->relationship('country', 'name')
+                ->native(false)
+                ->searchable()
+                ->preload()
                 ->required(),
             TextInput::make('name')
                 ->required()
-                ->maxLength(255),
+                ->maxLength(100),
             TextInput::make('code')
-                ->maxLength(255),
+                ->maxLength(5),
             TextInput::make('phone_code')
                 ->tel()
-                ->maxLength(255),
+                ->maxLength(5),
         ];
 
     }

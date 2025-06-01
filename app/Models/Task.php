@@ -59,7 +59,10 @@ class Task extends Model
             TextInput::make('status')
                 ->maxLength(255),
             Select::make('employee_id')
-                ->relationship('employee', 'name'),
+                ->relationship('employee', 'name')
+                ->native(false)
+                ->searchable()
+                ->preload(),
         ];
     }
 } // end of Task model

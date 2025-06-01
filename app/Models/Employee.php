@@ -106,11 +106,20 @@ class Employee extends Model
                 ->collapsible()
                 ->schema([
                     Select::make('country_id')
-                        ->relationship('country', 'name'),
+                        ->relationship('country', 'name')
+                        ->native(false)
+                        ->searchable()
+                        ->preload(),
                     Select::make('state_id')
-                        ->relationship('state', 'name'),
+                        ->relationship('state', 'name')
+                        ->native(false)
+                        ->searchable()
+                        ->preload(),
                     Select::make('city_id')
-                        ->relationship('city', 'name'),
+                        ->relationship('city', 'name')
+                        ->native(false)
+                        ->searchable()
+                        ->preload(),
                     TextInput::make('address')
                         ->maxLength(255)
                     ->columnSpanFull(),
@@ -122,6 +131,9 @@ class Employee extends Model
                 ->schema([
                     Select::make('department_id')
                         ->relationship('department', 'name')
+                        ->native(false)
+                        ->searchable()
+                        ->preload()
                         ->required(),
                     DatePicker::make('date_hired'),
                 ]),

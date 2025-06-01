@@ -48,14 +48,14 @@ class Country extends Model
 
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(100),
                 TextInput::make('code')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(4),
                 TextInput::make('phone_code')
                     ->tel()
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(5),
             ];
     }
 } // end of country model

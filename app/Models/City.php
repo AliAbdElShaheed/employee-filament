@@ -52,12 +52,15 @@ class City extends Model
         return [
             Select::make('state_id')
                 ->relationship('state', 'name')
+                ->native(false)
+                ->searchable()
+                ->preload()
                 ->required(),
             TextInput::make('name')
                 ->required()
-                ->maxLength(255),
+                ->maxLength(100),
             TextInput::make('zip_code')
-                ->maxLength(255),
+                ->maxLength(20),
         ];
     }
 } // end of City model
