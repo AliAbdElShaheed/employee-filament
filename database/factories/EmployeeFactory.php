@@ -25,11 +25,11 @@ class EmployeeFactory extends Factory
             'address' => fake()->address(),
             'date_of_birth' => fake()->dateTimeBetween('-50 years', '-18 years')->format('Y-m-d'),
             'date_hired' => fake()->dateTimeBetween('-10 years', 'now')->format('Y-m-d'),
-            'department_id' => Department::factory(),
+            'department_id' => $this->faker->randomElement(Department::all()->pluck('id')->toArray()),
 
-            'country_id' => Country::factory(),
-            'state_id' => State::factory(),
-            'city_id' => City::factory(),
+            'country_id' => $this->faker->randomElement(Country::all()->pluck('id')->toArray()),
+            'state_id' => $this->faker->randomElement(State::all()->pluck('id')->toArray()),
+            'city_id' => $this->faker->randomElement(City::all()->pluck('id')->toArray()),
 
         ];
     }

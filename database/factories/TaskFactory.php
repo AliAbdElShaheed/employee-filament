@@ -26,7 +26,7 @@ class TaskFactory extends Factory
             'description' => fake()->sentence(),
             'due_date' => fake()->dateTimeBetween('now', '+1 year')->format('Y-m-d H:i:s'),
             'status' => fake()->word(),
-            'employee_id' => Employee::factory(),
+            'employee_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

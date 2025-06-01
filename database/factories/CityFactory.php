@@ -22,7 +22,7 @@ class CityFactory extends Factory
     public function definition(): array
     {
         return [
-            'state_id' => State::factory(),
+            'state_id' => $this->faker->randomElement(State::all()->pluck('id')->toArray()),
             'name' => fake()->city(),
             'zip_code' => fake()->postcode(),
         ];

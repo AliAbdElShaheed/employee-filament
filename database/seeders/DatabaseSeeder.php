@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\State;
+use App\Models\Task;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -31,6 +34,15 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
-         Employee::factory(20)->create();
+        Country::factory(20)->create();
+        State::factory(50)->create();
+        City::factory(100)->create();
+
+        Department::factory(10)->create();
+
+        Employee::factory(20)->create();
+
+
+        Task::factory(50)->create();
     }
 }

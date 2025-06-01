@@ -22,7 +22,7 @@ class StateFactory extends Factory
     public function definition(): array
     {
         return [
-            'country_id' => Country::factory(),
+            'country_id' => $this->faker->randomElement(Country::all()->pluck('id')->toArray()),
             'name' => fake()->city(),
             'code' => fake()->citySuffix(),
             'phone_code' => fake()->randomElement(['+1', '+44', '+33', '+49', '+81', '+61', '+91', '+86', '+7', '+55']),
