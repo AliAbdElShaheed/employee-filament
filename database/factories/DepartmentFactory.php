@@ -21,8 +21,8 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'code' => fake()->word(),
+            'name' => fake()->jobTitle(),
+            'code' => fake()->unique()->lexify('DEPT-????'),
         ];
     }
 }

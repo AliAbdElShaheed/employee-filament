@@ -23,8 +23,8 @@ class CityFactory extends Factory
     {
         return [
             'state_id' => State::factory(),
-            'name' => fake()->name(),
-            'zip_code' => fake()->word(),
+            'name' => fake()->city(),
+            'zip_code' => fake()->postcode(),
         ];
     }
 }

@@ -22,9 +22,9 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(4),
-            'description' => fake()->text(),
-            'due_date' => fake()->date(),
+            'title' => fake()->jobTitle(),
+            'description' => fake()->sentence(),
+            'due_date' => fake()->dateTimeBetween('now', '+1 year')->format('Y-m-d H:i:s'),
             'status' => fake()->word(),
             'employee_id' => Employee::factory(),
         ];

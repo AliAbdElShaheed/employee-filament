@@ -2,37 +2,35 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\;
 use App\Models\Department;
 use App\Models\Employee;
 
 class EmployeeFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
+
     protected $model = Employee::class;
 
-    /**
-     * Define the model's default state.
-     */
+
     public function definition(): array
     {
         return [
-            'country_id' => ::factory(),
-            'state_id' => ::factory(),
-            'city_id' => ::factory(),
-            'department_id' => Department::factory(),
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
-            'address' => fake()->word(),
-            'date_of_birth' => fake()->date(),
-            'date_hired' => fake()->date(),
+            'address' => fake()->address(),
+            'date_of_birth' => fake()->dateTimeBetween('-50 years', '-18 years')->format('Y-m-d'),
+            'date_hired' => fake()->dateTimeBetween('-10 years', 'now')->format('Y-m-d'),
+            'department_id' => Department::factory(),
+
+            'country_id' => Country::factory(),
+            'state_id' => State::factory(),
+            'city_id' => City::factory(),
+
         ];
     }
 }

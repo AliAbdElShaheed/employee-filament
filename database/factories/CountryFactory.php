@@ -21,9 +21,9 @@ class CountryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'code' => fake()->word(),
-            'phone_code' => fake()->word(),
+            'name' => fake()->country(),
+            'code' => fake()->countryCode(),
+            'phone_code' => fake()->randomElement(['+1', '+44', '+33', '+49', '+81', '+61', '+91', '+86', '+7', '+55']),
         ];
     }
 }

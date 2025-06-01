@@ -23,9 +23,9 @@ class StateFactory extends Factory
     {
         return [
             'country_id' => Country::factory(),
-            'name' => fake()->name(),
-            'code' => fake()->word(),
-            'phone_code' => fake()->word(),
+            'name' => fake()->city(),
+            'code' => fake()->citySuffix(),
+            'phone_code' => fake()->randomElement(['+1', '+44', '+33', '+49', '+81', '+61', '+91', '+86', '+7', '+55']),
         ];
     }
 }
