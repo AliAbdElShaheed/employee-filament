@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Infolists\Components\Group;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+
 
 class Employee extends Model
 {
@@ -169,6 +172,66 @@ class Employee extends Model
                         ->suffixIcon('heroicon-o-calendar'),
                 ]),
 
+
+        ];
+    }
+
+
+    public static function getInfolistSchema(): array
+    {
+        return [
+            Section::make('Employee Details')
+                ->icon('heroicon-o-information-circle')
+                ->columns(3)
+                ->collapsible()
+                ->schema([
+                    TextEntry::make('name')
+                        ->label('Full Name')
+                        ->weight('bold'),
+                    Group::make()
+                        ->columnSpan(2)
+                        ->columns(2)
+                        ->schema([
+                            TextEntry::make('email')
+                                ->label('Email Address')
+                                ->url(fn($record) => 'mailto:' . $record->email)
+                                ->weight('medium'),
+                            TextEntry::make('phone')
+                                ->label('Phone Number'),
+                            TextEntry::make('address')
+                                ->label('Address')
+                                ->limit(35),
+                            TextEntry::make('date_of_birth')
+                                ->label('Date of Birth')
+                                ->date(),
+                        ]),
+                ]),
+
+            Section::make('Employment Information')
+                ->icon('heroicon-o-briefcase')
+                ->columns(2)
+                ->collapsible()
+                ->collapsed()
+                ->schema([
+                    TextEntry::make('department.name')
+                        ->label('Department'),
+                    TextEntry::make('date_hired')
+                        ->label('Date Hired')
+                        ->date(),
+                ]),
+            Section::make('Location Information')
+                ->icon('heroicon-o-map-pin')
+                ->columns(3)
+                ->collapsible()
+                ->collapsed()
+                ->schema([
+                    TextEntry::make('country.name')
+                        ->label('Country'),
+                    TextEntry::make('state.name')
+                        ->label('State'),
+                    TextEntry::make('city.name')
+                        ->label('City'),
+                ]),
 
         ];
     }

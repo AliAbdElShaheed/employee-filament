@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -57,5 +59,24 @@ class Country extends Model
                     ->required()
                     ->maxLength(5),
             ];
+    }
+
+
+    public static function getInfolistSchema(): array
+    {
+        return [
+            Section::make()
+                ->columns(3)
+                ->description('Country Details')
+                ->schema([
+                    TextEntry::make('name')
+                        ->label('Country Name'),
+                    TextEntry::make('code')
+                        ->label('Country Code'),
+                    TextEntry::make('phone_code')
+                        ->Icon('heroicon-o-phone')
+                        ->label('Phone Code'),
+                ]),
+        ];
     }
 } // end of country model

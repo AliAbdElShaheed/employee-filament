@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -61,6 +63,32 @@ class City extends Model
                 ->maxLength(100),
             TextInput::make('zip_code')
                 ->maxLength(20),
+        ];
+    }
+
+
+    public static function getInfolistSchema(): array
+    {
+        return [
+            Section::make()
+                ->columns(2)
+                ->description('City Details')
+                ->schema([
+                    TextEntry::make('name')
+                        ->label('City Name'),
+                    TextEntry::make('zip_code')
+                        ->label('Zip Code'),
+                    TextEntry::make('state.name')
+                        ->label('State Name')
+                        ->badge(),
+                    TextEntry::make('country.name')
+                        ->label('Country Name')
+                        ->getStateUsing(function ($record) {
+                            return $record->state?->country?->name ?? 'N/A';
+                        })
+                        ->badge()
+                        ->visible(fn(City $record) => $record->state?->country?->name !== null),
+                ]),
         ];
     }
 } // end of City model

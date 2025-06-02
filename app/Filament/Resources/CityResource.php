@@ -5,8 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CityResource\Pages;
 use App\Filament\Resources\CityResource\RelationManagers;
 use App\Models\City;
+use App\Models\Country;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -63,6 +65,14 @@ class CityResource extends Resource
                 ]),
             ]);
     }
+
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema(City::getInfolistSchema());
+    }
+
 
     public static function getRelations(): array
     {

@@ -7,6 +7,7 @@ use App\Filament\Resources\TaskResource\RelationManagers;
 use App\Models\Task;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -67,6 +68,15 @@ class TaskResource extends Resource
                 ]),
             ]);
     }
+
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema(Task::getInfolistSchema());
+    }
+
+
 
     public static function getRelations(): array
     {

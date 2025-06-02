@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -74,4 +76,27 @@ class State extends Model
         ];
 
     }
+
+
+    public static function getInfolistSchema(): array
+    {
+        return [
+            Section::make()
+                ->columns(2)
+                ->description('State Details')
+                ->schema([
+                    TextEntry::make('name')
+                        ->label('State Name'),
+                    TextEntry::make('code')
+                        ->label('State Code'),
+                    TextEntry::make('phone_code')
+                        ->label('Phone Code'),
+                    TextEntry::make('country.name')
+                        ->label('Country Name')
+                        ->badge(),
+                ]),
+        ];
+    }
+
+
 } // end of State model
