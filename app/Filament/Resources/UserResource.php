@@ -9,6 +9,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -32,6 +34,9 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->filtersTriggerAction(function ($action) {
+                return $action->button()->label('Filters');
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
@@ -52,7 +57,17 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+
+                TernaryFilter::make('email_verified_at')
+                    ->nullable(),
+
+                Filter::make('is_admin')
+                    ->label('Administrators')
+                    ->toggle()
+                    ->query(function (Builder $query) {
+                        return $query->where('is_admin', true);
+                    }),
+
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
