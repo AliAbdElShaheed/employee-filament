@@ -31,8 +31,19 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Indigo,
                 'gray' => Color::Slate,
+                'default' => Color::Blue,
+
+                'danger' => Color::Red,
+                'success' => Color::Green,
+                'warning' => Color::Amber,
+                'info' => Color::Sky,
+                'secondary' => Color::Neutral,
+                'accent' => Color::Violet,
+                'dark' => Color::Zinc,
+                'light' => Color::Gray,
             ])
-//            ->font('Poppins')
+
+            //            ->font('Poppins')
             ->brandName('Admin Panel')
 //            ->brandLogo(asset('system-imgs/system-logo.png'))
 //            ->darkModeBrandLogo(asset('system-imgs/system-dark-logo.png'))
@@ -42,7 +53,7 @@ class AdminPanelProvider extends PanelProvider
 //            ->sidebarFullyCollapsibleOnDesktop()
             ->sidebarCollapsibleOnDesktop()
             ->collapsedSidebarWidth('9rem')
-//            ->sidebarWidth('25rem')
+//            ->sidebarWidth('15rem')
 
 //            ->topbar(false)
 
@@ -63,6 +74,11 @@ class AdminPanelProvider extends PanelProvider
                     //->icon('heroicon-o-user-group')
                     ->collapsed(),
             ])
+            /*->navigationGroups([
+                'System Management',
+                'Settings',
+                'User Management',
+            ])*/
 
             //->collapsibleNavigationGroups(false)
 

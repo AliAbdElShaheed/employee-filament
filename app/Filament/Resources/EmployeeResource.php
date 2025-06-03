@@ -30,6 +30,8 @@ class EmployeeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationGroup = 'System Management';
 
     protected static ?string $recordTitleAttribute = 'name';
@@ -68,7 +70,15 @@ class EmployeeResource extends Resource
     }
 
 
-    protected static ?int $navigationSort = 2;
+    public static function getNavigationBadge(): ?string
+    {
+        return parent::getNavigationBadge() ?? static::getModel()::count();
+    }
+
+    /*public static function getNavigationBadgeColor(): string|array|null
+    {
+        return parent::getNavigationBadge() ?? 'accent';
+    }*/
 
     public static function form(Form $form): Form
     {

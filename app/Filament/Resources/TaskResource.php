@@ -41,6 +41,18 @@ class TaskResource extends Resource
     }
 
 
+    public static function getNavigationBadge(): ?string
+    {
+        return parent::getNavigationBadge() ?? static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return static::getModel()::count() > 0 ? 'success' : 'danger';
+    }
+
+
+
     public static function form(Form $form): Form
     {
         return $form
