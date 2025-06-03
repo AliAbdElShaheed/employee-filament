@@ -65,6 +65,7 @@ class Task extends Model
             Select::make('employee_id')
                 ->relationship('employee', 'name')
                 ->native(false)
+                ->multiple()
                 ->searchable()
                 ->preload(),
         ];

@@ -90,7 +90,7 @@ class Employee extends Model
     public static function getFormSchema(): array
     {
         return [
-            Section::make('Basic Information')
+            \Filament\Forms\Components\Section::make('Basic Information')
                 ->description('Fill in the basic information of the employee.')
                 ->columns(2)
                 ->collapsible()
@@ -114,7 +114,7 @@ class Employee extends Model
                         ->minDate(now()->subYears(35))
                         ->maxDate(now()->addYears(18)),
                 ]),
-            Section::make('Location Information')
+            \Filament\Forms\Components\Section::make('Location Information')
                 ->description('Select the location details of the employee.')
                 ->columns(3)
                 ->collapsible()
@@ -150,7 +150,7 @@ class Employee extends Model
                         ->maxLength(255)
                     ->columnSpanFull(),
                 ]),
-            Section::make('Employment Information')
+            \Filament\Forms\Components\Section::make('Employment Information')
                 ->description('Fill in the employment details of the employee.')
                 ->columns(2)
                 ->collapsible()
