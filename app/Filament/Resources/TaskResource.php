@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TaskResource extends Resource
@@ -23,6 +24,22 @@ class TaskResource extends Resource
     protected static ?string $navigationGroup = 'System Management';
 
     protected static ?int $navigationSort = 4;
+
+
+    protected static ?string $recordTitleAttribute = 'title';
+
+
+    protected static int $globalSearchResultsLimit = 7;
+
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Due Date' => $record->due_date?->format('Y-m-d'),
+            'Status' => $record->status,
+        ];
+    }
+
 
     public static function form(Form $form): Form
     {
