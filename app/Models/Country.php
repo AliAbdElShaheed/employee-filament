@@ -41,6 +41,12 @@ class Country extends Model
     }
 
 
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+
 
     //functions
 

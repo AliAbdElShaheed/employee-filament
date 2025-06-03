@@ -53,6 +53,12 @@ class State extends Model
     }
 
 
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+
 
 
     // Functions
