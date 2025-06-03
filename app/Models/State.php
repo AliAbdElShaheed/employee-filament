@@ -62,7 +62,7 @@ class State extends Model
 
 
     // Functions
-    public static function getFormSchema(): array
+    public static function getFormSchema($countryId = null): array
     {
         return [
             Select::make('country_id')
@@ -70,6 +70,9 @@ class State extends Model
                 ->native(false)
                 ->searchable()
                 ->preload()
+                ->hidden(function () use ($countryId) {
+                    return $countryId !== null;
+                })
                 ->required(),
             TextInput::make('name')
                 ->required()
